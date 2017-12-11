@@ -14,14 +14,7 @@ struct ElementsAPIClient {
     func getElements(from urlStr: String,
                    completionHandler: @escaping ([ElementInfo]) -> Void,
                    errorHandler: @escaping (Error) -> Void) {
-        
-        //let APIKey = ""  //"7289999-27d8716686d599947ed35246c"
-        //let filter = urlStr.replacingOccurrences(of: " ", with: "+")
         let urlStr = "https://api.fieldbook.com/v1/5a29757f9b3fec0300e1a68c/elements"
-        
-        //"https://pixabay.com/api/?key=\(APIKey)&q=\(filter)&image_type=photo"
-      //guard let url = URL(string: urlStr) else {return}
-        
         guard let authenticatedRequest = buildAuthRequest(from: urlStr, httpVerb: .GET) else { errorHandler(AppError.badURL); return }
         
         let parseDataIntoElementArr: (Data) -> Void = {(data: Data) in
@@ -33,7 +26,6 @@ struct ElementsAPIClient {
                 print(error)
             }
         }
-        //URLRequest(url: url),
         NetworkHelper.manager.performDataTask(with: authenticatedRequest,
                                               completionHandler: parseDataIntoElementArr,
                                               errorHandler: errorHandler)
@@ -100,23 +92,4 @@ private func buildAuthStr(userName: String, password: String) -> String {
     }
     
 }
-
-//class ImageAPIClient {
-//    private init() {}
-//    static let manager = ImageAPIClient()
-//    func loadImage(from urlStr: String,
-//                   completionHandler: @escaping (UIImage) -> Void,
-//                   errorHandler: @escaping (Error) -> Void) {
-
-//          let urlStr = "http://www.theodoregray.com/periodictable/Tiles/// ElementNumberWithThreeDigits/s7.JPG"
-//        guard let url = URL(string: urlStr) else {return}
-//        let completion = {(data: Data) in
-//            guard let onlineImage = UIImage(data: data) else {return}
-//            completionHandler(onlineImage)
-//        }
-//        NetworkHelper.manager.performDataTask(with: URLRequest(url: url),
-//                                              completionHandler: completion,
-//                                              errorHandler: errorHandler)
-//    }
-//}
 

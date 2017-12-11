@@ -14,19 +14,25 @@ enum HTTPVerb{
 }
 
 struct ElementInfo: Codable {
-    var id: Int
+    var id: Int?
     var name: String?
     var symbol: String?
     var number: Int?
     var weight: Double?
-    var melting_c: Int?
-    var boiling_c: Int?
-    //var discovery_year: Int
+    var meltingC: Double?
+    var boilingC: Double?
+   
+    enum CodingKeys: String, CodingKey {
+        case id
+        case number
+        case weight
+        case name
+        case symbol
+        case meltingC = "melting_c"
+        case boilingC = "boiling_c"
+    }
 }
-
 struct Favorite: Codable {
-    var id: Int?
-    var record_url: String?
     var name: String?
     let favorite_element: String?
 }

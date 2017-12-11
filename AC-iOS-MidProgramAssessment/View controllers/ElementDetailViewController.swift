@@ -14,18 +14,18 @@ class ElementDetailViewController: UIViewController {
     @IBOutlet weak var anElementImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var symbol: UILabel!
-  //  @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var meltingLabel: UILabel!
     @IBOutlet weak var boilingLabel: UILabel!
-    //@IBOutlet weak var discoveryLabel: UILabel!
+    @IBOutlet weak var discoveryLabel: UILabel!
     
     
-//    @IBAction func saveButton(_ sender: UIButton){
-//        let favorite = Favorite(image_link: elementImage.webformatURL, student_name: "Meseret")
-//        ElementsAPIClient.shared.post(favorite: favorite){print($0)}
-//       
-//    }
+    @IBAction func saveButton(_ sender: UIButton){
+        let favorite = Favorite(name: "Meseret", favorite_element: element.name)
+        ElementsAPIClient.shared.post(favorite: favorite){print($0)}
+       
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,15 +34,15 @@ class ElementDetailViewController: UIViewController {
     }
     
     func loadLabels(){
+        self.numberLabel.text = "\(element.number ?? 0)"
         self.nameLabel.text = element.name ?? ""
-        self.symbol.text = "\(element.symbol)\(element.number)" ?? ""
-        self.weightLabel.text = "\(element.weight)"  ?? ""
-        self.boilingLabel.text = "\(element.boiling_c)" ?? ""
-        self.meltingLabel.text = "\(element.melting_c)" ?? ""
-       // self.discoveryLabel.text = element.discovery_year
+        self.symbol.text = "\(element.symbol ?? "n/a")\(element.number?.description ?? "")"
+        self.weightLabel.text = "\(element.weight?.description ?? "")"
+        self.boilingLabel.text = "Boiling: \(element.boilingC?.description ?? "")"
+        self.meltingLabel.text = "Melting: \(element.meltingC?.description ?? "")"
         
-        let lowerNsme = element.name?.lowercased()
-        let elementImage = "http://images-of-elements.com/\(lowerNsme).jpg"
+        let lowerName = element.name?.lowercased()
+        let elementImage = "http://images-of-elements.com/\(lowerName ?? "").jpg"
         
         let setImage: (UIImage) -> Void = {(onlineImage: UIImage) in
             self.anElementImageView.image = onlineImage

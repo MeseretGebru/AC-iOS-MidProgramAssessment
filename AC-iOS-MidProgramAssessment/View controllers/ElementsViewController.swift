@@ -64,7 +64,7 @@ extension ElementsViewController{
             print(error)
         }
             
-        let  elementNumber = "\(element.number)"
+        let  elementNumber = "\(element.number?.description ?? "")"
             if elementNumber.count != 3 {
                 let elementNumberWithThreeDigits = String(format: "%03ld", element.number!)
                print(elementNumberWithThreeDigits)
